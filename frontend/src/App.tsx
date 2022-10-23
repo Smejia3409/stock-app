@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { data_fetch } from "./data";
+import LoadingScreen from "./LoadingScreen";
 
 function App() {
   const [stock, setStock] = useState<String>("Googl");
   const [data, setData] = useState<any>([]);
-  useEffect(() => {});
+  const [loading, setLoading] = useState<Boolean>(true);
 
-  useEffect(() => {}, []);
+  const getData = async () => {
+    try {
+      let d: any = data_fetch("MSFT");
 
-  setTimeout(() => {
-    let res = data_fetch(stock);
-    console.log(res);
-  }, 1000);
+      console.log(d);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const getData = async () => {
+  //   let d = data_fetch("MSFT");
+  //   console.log(d);
+  //   setData(d);
+  // };
+
+  useEffect(() => {
+    getData();
+  }, [data]);
 
   return (
     <div className="container">
       <p>Stock follower</p>
+      {loading && <LoadingScreen />}
     </div>
   );
 }

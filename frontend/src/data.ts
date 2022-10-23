@@ -8,7 +8,7 @@ export const data_fetch = (stock: String) => {
     params: {
       interval: "1min",
       function: "TIME_SERIES_INTRADAY",
-      symbol: stock,
+      symbol: "MSFT",
       datatype: "json",
       output_size: "compact",
     },
@@ -20,10 +20,9 @@ export const data_fetch = (stock: String) => {
   axios
     .request(options)
     .then(function (response) {
-      return response.data;
+      return response;
     })
     .catch(function (error) {
-      console.error(error);
       return "Error";
     });
 };

@@ -20,7 +20,8 @@ export const data_fetch = (stock: String) => {
   axios
     .request(options)
     .then(function (response) {
-      return response;
+      console.log(response.data);
+      return response.data;
     })
     .catch(function (error) {
       return "Error";

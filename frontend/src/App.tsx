@@ -3,6 +3,7 @@ import { data_fetch } from "./data";
 import LoadingScreen from "./LoadingScreen";
 import axios from "axios";
 import Cards from "./Cards";
+import SearchBar from "./SearchBar";
 
 function App() {
   const [stock, setStock] = useState<String>("Googl");
@@ -34,6 +35,7 @@ function App() {
   return (
     <div className="container">
       <p>Stock follower</p>
+      <SearchBar />
       {loading && <LoadingScreen />}
       <Cards symbol="frf" open="22" high="111" low="2" />
 

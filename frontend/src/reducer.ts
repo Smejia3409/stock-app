@@ -1,8 +1,16 @@
-import { useReducer } from "react";
+export const StockState = {
+  keyword: "",
+};
 
-const searchReducer = (state: any, action: any) => {
+export const searchReducer = (state: any, action: any) => {
   switch (action.type) {
-    case "stock_name":
-      return { name: state.name };
+    case "setStock":
+      return { keyword: action.payload };
+
+    case "emptyStock":
+      return { keyword: "" };
+
+    default:
+      return state;
   }
 };

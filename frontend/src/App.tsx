@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { data_fetch } from "./data";
+import { get_stock_data } from "./data";
 import LoadingScreen from "./LoadingScreen";
 import axios from "axios";
 import Cards from "./Cards";

@@ -1,4 +1,5 @@
 import axios from "axios";
+const dotenv = require("dotenv").config();
 //gets stock data
 
 const config: Object = {
@@ -10,12 +11,12 @@ const config: Object = {
     output_size: "compact",
   },
   headers: {
-    "X-RapidAPI-Key": "40c18545dfmshd6b127ed3b5e3adp182eefjsne60db23d61ca",
-    "X-RapidAPI-Host": "alpha-vantage.p.rapidapi.com",
+    "X-RapidAPI-Key": process.env.Key,
+    "X-RapidAPI-Host": process.env.Host,
   },
 };
 
-export const data_fetch = async (setdata: any) => {
+export const get_stock_data = async (setdata: any) => {
   try {
     let { data: stock_data } = await axios.get(
       "https://alpha-vantage.p.rapidapi.com/query",
@@ -25,4 +26,18 @@ export const data_fetch = async (setdata: any) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const get_stock_symbols = async () => {
+  let url: string = "https://alpha-vantage.p.rapidapi.com/query";
+  let config: Object = {
+    params: {
+      keywords: "microsoft",
+      function: "SYMBOL_SEARCH",
+      datatype: "json",
+    },
+  };
+  try {
+    let { data: compaines } = await axios.get(url, config);
+  } catch (error) {}
 };

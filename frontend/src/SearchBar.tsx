@@ -2,6 +2,7 @@ import Form from "react-bootstrap/Form";
 import { searchReducer, StockState } from "./reducer";
 import { useContext, useReducer, useRef, useState } from "react";
 import { StockContext } from "./Context";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const SearchBar = () => {
   const [state, dispatch] = useReducer(searchReducer, StockState);
@@ -12,7 +13,6 @@ const SearchBar = () => {
 
   const findStock = (stockEvent: React.FormEvent<HTMLFormElement>) => {
     stockEvent.preventDefault();
-    console.log(state?.keyword);
     setStock(stockInput);
   };
 
@@ -33,8 +33,7 @@ const SearchBar = () => {
 
         <button type="submit">submit</button>
       </Form>
-
-      <p>{stock}</p>
+      <Dropdown.Menu></Dropdown.Menu>
     </div>
   );
 };

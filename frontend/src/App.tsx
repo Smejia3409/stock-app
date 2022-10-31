@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { get_stock_data } from "./data";
+import { get_stock_data, get_stock_symbols } from "./data";
 import LoadingScreen from "./LoadingScreen";
 import axios from "axios";
 import Cards from "./Cards";
@@ -26,6 +26,10 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   });
+
+  useEffect(() => {
+    // get_stock_symbols("apple");
+  }, []);
 
   return (
     <div className="container">

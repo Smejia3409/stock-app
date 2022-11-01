@@ -37,7 +37,7 @@ export const get_stock_symbols = async (stock: string) => {
       datatype: "json",
     },
     headers: {
-      "X-RapidAPI-Key": "40c18545dfmshd6b127ed3b5e3adp182eefjsne60db23d61ca",
+      "X-RapidAPI-Key": "",
       "X-RapidAPI-Host": "alpha-vantage.p.rapidapi.com",
     },
   };

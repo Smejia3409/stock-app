@@ -33,7 +33,7 @@ const SearchBar = () => {
         datatype: "json",
       },
       headers: {
-        "X-RapidAPI-Key": "40c18545dfmshd6b127ed3b5e3adp182eefjsne60db23d61ca",
+        "X-RapidAPI-Key": "",
         "X-RapidAPI-Host": "alpha-vantage.p.rapidapi.com",
       },
     };
@@ -71,7 +71,7 @@ const SearchBar = () => {
             placeholder="Search Stock"
           />
         </Form.Group>
-        {stockInput !== "" && <p>{companies[0]["1. symbol"]}</p>}
+        <StockResults stockList={companies} />
         <button type="submit">submit</button>
       </Form>
     </div>
@@ -83,7 +83,12 @@ const StockResults = (props: { stockList: Array<any> }) => {
     <Dropdown>
       <Dropdown.Menu>
         {props.stockList.map((company: any) => {
-          return <Dropdown.Item></Dropdown.Item>;
+          return (
+            <Dropdown.Item key={company["1. symbol"]}>
+              {" "}
+              {company["1. symbol"]}
+            </Dropdown.Item>
+          );
         })}
       </Dropdown.Menu>
     </Dropdown>

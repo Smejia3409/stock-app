@@ -28,7 +28,7 @@ export const get_stock_data = async (setdata: any) => {
   }
 };
 
-export const get_stock_symbols = async (stock: string, setdata: any) => {
+export const get_stock_symbols = async (stock: string) => {
   let url: string = "https://alpha-vantage.p.rapidapi.com/query";
   let config: Object = {
     params: {
@@ -44,8 +44,7 @@ export const get_stock_symbols = async (stock: string, setdata: any) => {
   try {
     let { data: compaines } = await axios.get(url, config);
     console.log(compaines["bestMatches"]);
-    if (compaines) {
-      setdata(compaines["bestMatches"]);
-    }
+
+    return compaines;
   } catch (error) {}
 };

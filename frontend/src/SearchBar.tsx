@@ -33,7 +33,7 @@ const SearchBar = () => {
         datatype: "json",
       },
       headers: {
-        "X-RapidAPI-Key": "",
+        "X-RapidAPI-Key": "40c18545dfmshd6b127ed3b5e3adp182eefjsne60db23d61ca",
         "X-RapidAPI-Host": "alpha-vantage.p.rapidapi.com",
       },
     };
@@ -48,7 +48,7 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
-    if (stockInput !== "") {
+    if (stockInput !== "" && stockInput.length > 2) {
       get_stock_symbols(stockInput);
     }
   }, [stock]);
@@ -61,17 +61,19 @@ const SearchBar = () => {
 
   return (
     <div className="container">
-      <Form style={{ width: "33%" }} onSubmit={findStock}>
+      <Form style={{ width: "50%" }} onSubmit={findStock}>
         <Form.Group>
-          <Form.Control
-            onChange={(e) => {
-              setStockInput(e.target.value);
-            }}
-            type="text"
-            placeholder="Search Stock"
-          />
+          <ol>
+            <Form.Control
+              onChange={(e) => {
+                setStockInput(e.target.value);
+              }}
+              type="text"
+              placeholder="Search Stock"
+            />
+            <StockResults stockList={companies} />
+          </ol>
         </Form.Group>
-        <StockResults stockList={companies} />
         <button type="submit">submit</button>
       </Form>
     </div>
@@ -79,19 +81,30 @@ const SearchBar = () => {
 };
 
 const StockResults = (props: { stockList: Array<any> }) => {
+  const selectComapny = (comapnyEvent: React.FormEvent<HTMLFormElement>) => {
+    console.log(comapnyEvent);
+  };
   return (
-    <Dropdown>
-      <Dropdown.Menu>
-        {props.stockList.map((company: any) => {
-          return (
-            <Dropdown.Item key={company["1. symbol"]}>
-              {" "}
-              {company["1. symbol"]}
-            </Dropdown.Item>
-          );
-        })}
-      </Dropdown.Menu>
-    </Dropdown>
+    <div
+      className="overflow-auto h-50 w-200 border border-bottom-danger"
+      style={{ height: "100px" }}
+    >
+      {props.stockList.map((company: any) => {
+        const region = company["1. symbol"].substring(
+          company["1. symbol"].indexOf(".") + 1
+        );
+        return (
+          <Dropdown.Item
+            key={company["2. name"] + company["1. symbol"]}
+            onClick={() => {
+              console.log(company["1. symbol"]);
+            }}
+          >
+            {company["2. name"] + "   " + region}
+          </Dropdown.Item>
+        );
+      })}
+    </div>
   );
 };
 

@@ -10,20 +10,13 @@ const SearchBar = () => {
   const { stock, setStock } = useContext<any>(StockContext);
   const [stockInput, setStockInput] = useState<string>("");
   const [companies, setCompanies] = useState<any>([]);
+  const [showlist, setShowList] = useState<boolean>(false);
 
   const findStock = (stockEvent: React.FormEvent<HTMLFormElement>) => {
     stockEvent.preventDefault();
     setStock(stockInput);
   };
 
-  // let getData = async (stock: string) => {
-  //   let { data: res } = await get_stock_symbols(stock);
-  //   setCompanies(res);
-  // };
-
-  // useEffect(() => {
-  //   getData(stock);
-  // }, []);
   const get_stock_symbols = async (stock: string) => {
     let url: string = "https://alpha-vantage.p.rapidapi.com/query";
     let config: Object = {
@@ -41,6 +34,7 @@ const SearchBar = () => {
       let { data: compaines } = await axios.get(url, config);
       if (compaines) {
         setCompanies(compaines["bestMatches"]);
+        setShowList(true);
       }
     } catch (error) {
       console.error(error);
@@ -63,32 +57,26 @@ const SearchBar = () => {
     <div className="container">
       <Form style={{ width: "50%" }} onSubmit={findStock}>
         <Form.Group>
-          <ol>
-            <Form.Control
-              onChange={(e) => {
-                setStockInput(e.target.value);
-              }}
-              type="text"
-              placeholder="Search Stock"
-            />
-            <StockResults stockList={companies} />
-          </ol>
+          <Form.Control
+            onChange={(e) => {
+              setStockInput(e.target.value);
+            }}
+            type="text"
+            placeholder="Search Stock"
+          />
         </Form.Group>
+        {showlist && (
+          <StockResults stockList={companies} changeDisplay={setShowList} />
+        )}
         <button type="submit">submit</button>
       </Form>
     </div>
   );
 };
 
-const StockResults = (props: { stockList: Array<any> }) => {
-  const selectComapny = (comapnyEvent: React.FormEvent<HTMLFormElement>) => {
-    console.log(comapnyEvent);
-  };
+const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
   return (
-    <div
-      className="overflow-auto h-50 w-200 border border-bottom-danger"
-      style={{ height: "100px" }}
-    >
+    <>
       {props.stockList.map((company: any) => {
         const region = company["1. symbol"].substring(
           company["1. symbol"].indexOf(".") + 1
@@ -98,13 +86,14 @@ const StockResults = (props: { stockList: Array<any> }) => {
             key={company["2. name"] + company["1. symbol"]}
             onClick={() => {
               console.log(company["1. symbol"]);
+              props.changeDisplay(false);
             }}
           >
             {company["2. name"] + "   " + region}
           </Dropdown.Item>
         );
       })}
-    </div>
+    </>
   );
 };
 

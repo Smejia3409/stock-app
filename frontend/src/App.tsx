@@ -11,6 +11,7 @@ function App() {
   // const [stock, setStock] = useState<String>("Googl");
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState<Boolean>(true);
+
   //const [stockData, setStockData] = useState<IStock>({})
   // const [state, dispatch] = useReducer(searchReducer, StockState);
 
@@ -37,7 +38,9 @@ function App() {
         <p>Stock follower</p>
         <SearchBar />
         {loading && <LoadingScreen />}
-        <Cards symbol="frf" open="22" high="111" low="2" />
+        {/* <Cards symbol="frf" open="22" high="111" low="2" /> */}
+
+        {/* {stock != "" && <p>{stock}</p>} */}
 
         {data && (
           <div>

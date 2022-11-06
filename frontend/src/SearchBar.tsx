@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { searchReducer, StockState } from "./reducer";
 import { useContext, useEffect, useReducer, useRef, useState } from "react";
-import { StockContext } from "./Context";
+import { StockContext, StockDetails } from "./Context";
 import Dropdown from "react-bootstrap/Dropdown";
 import { get_stock_symbols } from "./data";
 import axios from "axios";
@@ -75,6 +75,38 @@ const SearchBar = () => {
 };
 
 const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
+  const { stock, setStock } = useContext<any>(StockContext);
+
+  const { stockDetails, setStockDetails } = useContext<any>(StockDetails);
+
+  const setStockInfo = async (stock: string) => {
+    const config: Object = {
+      params: {
+        interval: "1min",
+        function: "TIME_SERIES_INTRADAY",
+        symbol: stock,
+        datatype: "json",
+        output_size: "compact",
+      },
+      headers: {
+        "X-RapidAPI-Key": "40c18545dfmshd6b127ed3b5e3adp182eefjsne60db23d61ca",
+        "X-RapidAPI-Host": "alpha-vantage.p.rapidapi.com",
+      },
+    };
+
+    try {
+      let { data: stock_data } = await axios.get(
+        "https://alpha-vantage.p.rapidapi.com/query",
+        config
+      );
+      // setData(stock_data);
+      console.log(stock_data);
+      setStockDetails(stock_data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {props.stockList.map((company: any) => {
@@ -87,6 +119,8 @@ const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
             onClick={() => {
               console.log(company["1. symbol"]);
               props.changeDisplay(false);
+              setStock(company["1. symbol"]);
+              setStockInfo(company["1. symbol"]);
             }}
           >
             {company["2. name"] + "   " + region}

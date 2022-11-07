@@ -11,9 +11,9 @@ const Cards = (props: {
       <Card.Body>
         <Card.Title>{props.symbol}</Card.Title>
         <Card.Text>
-          {props.open} <br />
-          {props.high} <br />
-          {props.low}
+          Open:{props.open} <br />
+          High:{props.high} <br />
+          low:{props.low}
         </Card.Text>
       </Card.Body>
     </Card>

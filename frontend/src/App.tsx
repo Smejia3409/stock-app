@@ -5,7 +5,7 @@ import axios from "axios";
 import Cards from "./Cards";
 import SearchBar from "./SearchBar";
 import { searchReducer, StockState } from "./reducer";
-import { StockContext } from "./Context";
+import { StockContext, StockDetails } from "./Context";
 
 function App() {
   // const [stock, setStock] = useState<String>("Googl");
@@ -23,6 +23,7 @@ function App() {
   }
 
   const [stock, setStock] = useState<any>("");
+  const [stockDetails, setStockDetails] = useState<any>();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
@@ -35,21 +36,46 @@ function App() {
   return (
     <div className="container">
       <StockContext.Provider value={{ stock, setStock }}>
-        <p>Stock follower</p>
-        <SearchBar />
-        {loading && <LoadingScreen />}
-        {/* <Cards symbol="frf" open="22" high="111" low="2" /> */}
+        <StockDetails.Provider value={{ stockDetails, setStockDetails }}>
+          <p>Stock follower</p>
+          <SearchBar />
+          {loading && <LoadingScreen />}
+          {/* <Cards symbol="frf" open="22" high="111" low="2" /> */}
 
-        {/* {stock != "" && <p>{stock}</p>} */}
+          {/* {stock != "" && <p>{stock}</p>} */}
 
-        {data && (
-          <div>
-            <p>{data["Meta Data"]["2. Symbol"]}</p>
-            <p>{data["Meta Data"]["Time Series (1min)"]}</p>
-          </div>
-        )}
+          {data && (
+            <div>
+              <p>{data["Meta Data"]["2. Symbol"]}</p>
+              <p>{data["Meta Data"]["Time Series (1min)"]}</p>
+            </div>
+          )}
 
-        {/* <p>hello, {state?.keyword}</p> */}
+          {stockDetails ? (
+            <Cards
+              symbol={stockDetails["Meta Data"]["2. Symbol"]}
+              open={
+                stockDetails["Time Series (1min)"][
+                  Object.keys(stockDetails["Time Series (1min)"])[0]
+                ]["1. open"]
+              }
+              high={
+                stockDetails["Time Series (1min)"][
+                  Object.keys(stockDetails["Time Series (1min)"])[0]
+                ]["2. high"]
+              }
+              low={
+                stockDetails["Time Series (1min)"][
+                  Object.keys(stockDetails["Time Series (1min)"])[0]
+                ]["3. low"]
+              }
+            />
+          ) : (
+            console.log("no ")
+          )}
+
+          {/* <p>hello, {state?.keyword}</p> */}
+        </StockDetails.Provider>
       </StockContext.Provider>
     </div>
   );

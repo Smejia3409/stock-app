@@ -54,6 +54,7 @@ function App() {
           {stockDetails ? (
             <Cards
               symbol={stockDetails["Meta Data"]["2. Symbol"]}
+              date={stockDetails["Meta Data"]["3. Last Refreshed"]}
               open={
                 stockDetails["Time Series (1min)"][
                   Object.keys(stockDetails["Time Series (1min)"])[0]

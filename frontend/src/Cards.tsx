@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
 import { AiOutlinePlus } from "react-icons/ai";
-import { addSymbol } from "./cookies";
+import { addSymbol, getSymbolCookie } from "./cookies";
 
 const Cards = (props: {
   symbol: string;
@@ -41,3 +41,26 @@ const Cards = (props: {
 };
 
 export default Cards;
+
+export const FavoriteCards = () => {
+  let symbols: Array<string> = [];
+
+  let cookie = getSymbolCookie().split(",");
+  cookie.forEach((s: string) => {
+    symbols.push(s);
+  });
+
+  console.log(symbols);
+
+  return (
+    <div>
+      {symbols.map((symbol: string) => {
+        return (
+          <button key={symbol} className="btn btn-primary">
+            {symbol}
+          </button>
+        );
+      })}
+    </div>
+  );
+};

@@ -2,10 +2,11 @@ import React, { useEffect, useReducer, useState } from "react";
 import { get_stock_data, get_stock_symbols } from "./data";
 import LoadingScreen from "./LoadingScreen";
 import axios from "axios";
-import Cards from "./Cards";
+import Cards, { FavoriteCards } from "./Cards";
 import SearchBar from "./SearchBar";
 import { searchReducer, StockState } from "./reducer";
 import { StockContext, StockDetails } from "./Context";
+import { getSymbolCookie } from "./cookies";
 
 function App() {
   // const [stock, setStock] = useState<String>("Googl");
@@ -50,6 +51,9 @@ function App() {
               <p>{data["Meta Data"]["Time Series (1min)"]}</p>
             </div>
           )}
+
+          <h4>My favorites</h4>
+          {getSymbolCookie() && <FavoriteCards />}
 
           {stockDetails ? (
             <Cards

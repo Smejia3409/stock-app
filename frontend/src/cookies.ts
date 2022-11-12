@@ -16,7 +16,9 @@ export const addSymbol = (symbol: string) => {
     document.cookie = `symbols=` + arr;
   } else {
     let arr = [symbolArr];
-    arr.push(symbol);
+    if (!arr.includes(symbol)) {
+      arr.push(symbol);
+    }
     document.cookie = `symbols=` + arr;
   }
 };

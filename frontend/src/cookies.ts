@@ -11,7 +11,7 @@ export const addSymbol = (symbol: string) => {
   let symbolArr = getSymbolCookie();
 
   if (!getSymbolCookie()) {
-    console.log("no coolie");
+    console.log("no cookie");
     let arr = [symbol];
     document.cookie = `symbols=` + arr;
   } else {
@@ -32,4 +32,8 @@ export const removeSymbol = (symbol: string) => {
   cookie.splice(symbolIndex, 1);
 
   document.cookie = `symbols = ${cookie}`;
+};
+
+export const deleteFavorites = () => {
+  document.cookie = `symbols = `;
 };

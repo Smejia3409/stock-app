@@ -1,12 +1,12 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { get_stock_data, get_stock_symbols } from "./data";
+import React, { useEffect, useState } from "react";
 import LoadingScreen from "./LoadingScreen";
-import axios from "axios";
 import Cards, { FavoriteCards } from "./Cards";
 import SearchBar from "./SearchBar";
-import { searchReducer, StockState } from "./reducer";
 import { StockContext, StockDetails } from "./Context";
 import { getSymbolCookie } from "./cookies";
+
+import { FiSettings } from "react-icons/fi";
+import { Dropdown } from "react-bootstrap";
 
 function App() {
   // const [stock, setStock] = useState<String>("Googl");
@@ -38,7 +38,26 @@ function App() {
     <div className="container">
       <StockContext.Provider value={{ stock, setStock }}>
         <StockDetails.Provider value={{ stockDetails, setStockDetails }}>
-          <p>Stock follower</p>
+          <div className="row">
+            <p className="col-11">Stock follower</p>
+            {/* <button className="btn btn-light col-1">
+              <FiSettings />
+            </button> */}
+            <Dropdown className="col-1">
+              <Dropdown.Toggle variant="light" id="dropdown-basic">
+                <FiSettings />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">
+                  Delete Favorites Stocks
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+
           <SearchBar />
           {loading && <LoadingScreen />}
           {/* <Cards symbol="frf" open="22" high="111" low="2" /> */}
@@ -52,10 +71,14 @@ function App() {
             </div>
           )}
 
-          <h4>My favorites</h4>
-          {getSymbolCookie() && <FavoriteCards />}
+          {getSymbolCookie() && (
+            <>
+              <h4>My favorites</h4>
+              <FavoriteCards />
+            </>
+          )}
 
-          {stockDetails && stockDetails["Meta Data"] ? (
+          {stockDetails && stockDetails["Meta Data"] && (
             <Cards
               symbol={stockDetails["Meta Data"]["2. Symbol"]}
               date={stockDetails["Meta Data"]["3. Last Refreshed"]}
@@ -75,8 +98,6 @@ function App() {
                 ]["3. low"]
               }
             />
-          ) : (
-            console.log("no ")
           )}
 
           {/* <p>hello, {state?.keyword}</p> */}

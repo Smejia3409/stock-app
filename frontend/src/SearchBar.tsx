@@ -48,9 +48,9 @@ const SearchBar = () => {
   }, [stock]);
 
   useEffect(() => {
-    if (companies) {
-      console.log(typeof companies);
-    }
+    // if (companies) {
+    //   console.log(typeof companies);
+    // }
   }, [companies]);
 
   return (

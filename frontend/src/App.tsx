@@ -55,7 +55,7 @@ function App() {
           <h4>My favorites</h4>
           {getSymbolCookie() && <FavoriteCards />}
 
-          {stockDetails ? (
+          {stockDetails && stockDetails["Meta Data"] ? (
             <Cards
               symbol={stockDetails["Meta Data"]["2. Symbol"]}
               date={stockDetails["Meta Data"]["3. Last Refreshed"]}

@@ -104,6 +104,7 @@ const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
       setStockDetails(stock_data);
     } catch (error) {
       console.log(error);
+      alert("Stock not found, Error occured with API");
     }
   };
 

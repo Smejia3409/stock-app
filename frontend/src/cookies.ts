@@ -22,3 +22,14 @@ export const addSymbol = (symbol: string) => {
     document.cookie = `symbols=` + arr;
   }
 };
+
+export const removeSymbol = (symbol: string) => {
+  //array of favorite symbols
+  let cookie: Array<string> = getSymbolCookie().split(",");
+
+  let symbolIndex = cookie.indexOf(symbol);
+
+  cookie.splice(symbolIndex, 1);
+
+  document.cookie = `symbols = ${cookie}`;
+};

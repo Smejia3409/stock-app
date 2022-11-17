@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
 import { AiOutlinePlus } from "react-icons/ai";
-import { addSymbol, getSymbolCookie } from "./cookies";
+import { addSymbol, getSymbolCookie, removeSymbol } from "./cookies";
 import axios from "axios";
 import { StockContext, StockDetails } from "./Context";
 import { useContext } from "react";
@@ -54,8 +54,6 @@ export const FavoriteCards = () => {
     symbols.push(s);
   });
 
-  console.log(symbols);
-
   const setStockInfo = async (stock: string) => {
     const config: Object = {
       params: {
@@ -92,7 +90,7 @@ export const FavoriteCards = () => {
             key={symbol}
             className="btn btn-primary"
             onClick={() => {
-              setStockInfo(symbol);
+              removeSymbol(symbol);
             }}
           >
             {symbol}

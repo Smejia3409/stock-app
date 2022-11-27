@@ -8,30 +8,22 @@ export function getSymbolCookie() {
 }
 
 export const addSymbol = (symbol: string) => {
-  let cookie: Array<string> = getSymbolCookie().split(",");
+  let symbolArr = getSymbolCookie();
 
-  // if (!getSymbolCookie()) {
-  //   console.log("no cookie");
-  //   let arr = [symbol];
-  //   document.cookie = `symbols=` + arr;
-  // } else {
-  //   let arr = [symbolArr];
-  //   if (arr.includes(symbol)) {
-  //     console.log("already inclued");
-  //   } else {
-  //     arr.push(symbol);
-  //   }
-  //   document.cookie = `symbols=` + arr;
-  // }
-
-  if (cookie.includes(symbol)) {
-    console.log(symbol + " is already included in favoirtes");
-    alert("alreadu in");
-  } else if (!cookie.includes(symbol)) {
-    cookie.push(symbol);
-    document.cookie = `symbols=` + cookie;
+  if (!getSymbolCookie()) {
+    console.log("no cookie");
+    let arr = [symbol];
+    document.cookie = `symbols=` + arr;
   } else {
-    document.cookie = `symbols=`;
+    let arrList: Array<string> = getSymbolCookie().split(",");
+    let arr = [symbolArr];
+
+    if (!arrList.includes(symbol)) {
+      arr.push(symbol);
+    } else {
+      alert("already included");
+    }
+    document.cookie = `symbols=` + arr;
   }
 };
 

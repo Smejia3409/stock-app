@@ -90,7 +90,7 @@ export const FavoriteCards = () => {
             key={symbol}
             className="btn btn-primary"
             onClick={() => {
-              removeSymbol(symbol);
+              setStockInfo(symbol);
             }}
           >
             {symbol}

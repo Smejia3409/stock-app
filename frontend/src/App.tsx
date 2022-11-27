@@ -3,7 +3,7 @@ import LoadingScreen from "./LoadingScreen";
 import Cards, { FavoriteCards } from "./Cards";
 import SearchBar from "./SearchBar";
 import { StockContext, StockDetails } from "./Context";
-import { getSymbolCookie, deleteFavorites } from "./cookies";
+import { getSymbolCookie } from "./cookies";
 
 import { FiSettings } from "react-icons/fi";
 import { Dropdown } from "react-bootstrap";
@@ -49,9 +49,11 @@ function App() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={deleteFavorites}>
+                <Dropdown.Item href="#/action-1">
                   Delete Favorites Stocks
                 </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

@@ -39,11 +39,9 @@ function App() {
     <div className="container extension">
       <StockContext.Provider value={{ stock, setStock }}>
         <StockDetails.Provider value={{ stockDetails, setStockDetails }}>
-          <div className="row w-100">
-            <p className="col-11">Stock follower</p>
-            {/* <button className="btn btn-light col-1">
-              <FiSettings />
-            </button> */}
+          <div className="row ">
+            <p className="col-9 app-headers">Stock Stalker</p>
+
             <Dropdown className="col-1">
               <Dropdown.Toggle variant="light" id="dropdown-basic">
                 <FiSettings />
@@ -53,8 +51,6 @@ function App() {
                 <Dropdown.Item href="#/action-1">
                   Delete Favorites Stocks
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
@@ -74,13 +70,13 @@ function App() {
 
           {getSymbolCookie() && (
             <>
-              <h4>My favorites</h4>
+              <p className="app-headers">My favorites</p>
               <FavoriteCards />
             </>
           )}
 
           {stockDetails && stockDetails["Meta Data"] && (
-            <div className="">
+            <div className="d-flex justify-content-center">
               <Cards
                 symbol={stockDetails["Meta Data"]["2. Symbol"]}
                 date={stockDetails["Meta Data"]["3. Last Refreshed"]}

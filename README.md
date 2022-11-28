@@ -1,6 +1,6 @@
 # About this project
 
-This a simple Stock React-TypeScript project that allows user to see stock information
+This a simple Stock React-TypeScript Chrome extension project that allows user to see stock information while using google chrome
 
 ## Technologies used
 
@@ -11,5 +11,3 @@ This a simple Stock React-TypeScript project that allows user to see stock infor
 ### Bootstrap
 
 ### Radid-API
-
-### React.js

@@ -68,7 +68,9 @@ const SearchBar = () => {
         {showlist && (
           <StockResults stockList={companies} changeDisplay={setShowList} />
         )}
-        <button type="submit">submit</button>
+        <button type="submit" className="btn btn-success">
+          Submit
+        </button>
       </Form>
     </div>
   );
@@ -117,6 +119,12 @@ const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
         return (
           <Dropdown.Item
             key={company["2. name"] + company["1. symbol"]}
+            style={{
+              width: "18 rem",
+              overflowY: "scroll",
+              height: "8 rem",
+              zIndex: 2,
+            }}
             onClick={() => {
               console.log(company["1. symbol"]);
               props.changeDisplay(false);

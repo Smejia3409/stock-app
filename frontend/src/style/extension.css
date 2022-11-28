@@ -1,8 +1,12 @@
-* {
-}
-
 .extension {
+  position: static;
   width: 18rem;
   height: 600px;
-  border: 1px solid black;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.app-headers {
+  font-family: "Roboto Mono", monospace;
+  font-size: 20px;
 }

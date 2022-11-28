@@ -55,7 +55,7 @@ const SearchBar = () => {
 
   return (
     <div className="container">
-      <Form style={{ width: "50%" }} onSubmit={findStock}>
+      <Form style={{ width: "100%" }} onSubmit={findStock}>
         <Form.Group>
           <Form.Control
             onChange={(e) => {

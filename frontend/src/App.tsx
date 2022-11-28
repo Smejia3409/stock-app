@@ -7,6 +7,7 @@ import { getSymbolCookie } from "./cookies";
 
 import { FiSettings } from "react-icons/fi";
 import { Dropdown } from "react-bootstrap";
+import "./style/extension.css";
 
 function App() {
   // const [stock, setStock] = useState<String>("Googl");
@@ -35,10 +36,10 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container extension">
       <StockContext.Provider value={{ stock, setStock }}>
         <StockDetails.Provider value={{ stockDetails, setStockDetails }}>
-          <div className="row">
+          <div className="row w-100">
             <p className="col-11">Stock follower</p>
             {/* <button className="btn btn-light col-1">
               <FiSettings />
@@ -79,25 +80,27 @@ function App() {
           )}
 
           {stockDetails && stockDetails["Meta Data"] && (
-            <Cards
-              symbol={stockDetails["Meta Data"]["2. Symbol"]}
-              date={stockDetails["Meta Data"]["3. Last Refreshed"]}
-              open={
-                stockDetails["Time Series (1min)"][
-                  Object.keys(stockDetails["Time Series (1min)"])[0]
-                ]["1. open"]
-              }
-              high={
-                stockDetails["Time Series (1min)"][
-                  Object.keys(stockDetails["Time Series (1min)"])[0]
-                ]["2. high"]
-              }
-              low={
-                stockDetails["Time Series (1min)"][
-                  Object.keys(stockDetails["Time Series (1min)"])[0]
-                ]["3. low"]
-              }
-            />
+            <div className="">
+              <Cards
+                symbol={stockDetails["Meta Data"]["2. Symbol"]}
+                date={stockDetails["Meta Data"]["3. Last Refreshed"]}
+                open={
+                  stockDetails["Time Series (1min)"][
+                    Object.keys(stockDetails["Time Series (1min)"])[0]
+                  ]["1. open"]
+                }
+                high={
+                  stockDetails["Time Series (1min)"][
+                    Object.keys(stockDetails["Time Series (1min)"])[0]
+                  ]["2. high"]
+                }
+                low={
+                  stockDetails["Time Series (1min)"][
+                    Object.keys(stockDetails["Time Series (1min)"])[0]
+                  ]["3. low"]
+                }
+              />
+            </div>
           )}
 
           {/* <p>hello, {state?.keyword}</p> */}

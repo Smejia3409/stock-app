@@ -15,20 +15,17 @@ const Cards = (props: {
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body>
-        <div className="d-flex w-100 border border-danger">
-          <Card.Title>{props.symbol}</Card.Title>
-          <div className="">
-            <button
-              className="btn btn-success"
-              onClick={() => {
-                console.log(props.symbol);
-                addSymbol(props.symbol);
-              }}
-            >
-              {" "}
-              <AiOutlinePlus />
-            </button>
-          </div>
+        <div className="row ">
+          <Card.Title className="col-10">{props.symbol}</Card.Title>
+          <button
+            className="btn btn-success col-2 "
+            onClick={() => {
+              console.log(props.symbol);
+              addSymbol(props.symbol);
+            }}
+          >
+            <AiOutlinePlus />
+          </button>
         </div>
         <Card.Text>
           <span>Last Refreshed</span> <br />

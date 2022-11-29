@@ -29,7 +29,7 @@ const Cards = (props: {
         </div>
         <Card.Text>
           <span>Last Refreshed</span> <br />
-          {props.date}
+          {new Date(props.date).toLocaleString()}
           <br />
           Open:{props.open} <br />
           High:{props.high} <br />

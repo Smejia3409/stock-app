@@ -128,7 +128,10 @@ const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
             onClick={() => {
               console.log(company["1. symbol"]);
               props.changeDisplay(false);
-              setStock(company["1. symbol"]);
+              setStock({
+                symbol: company["1. symbol"],
+                companyName: company["2. name"],
+              });
               setStockInfo(company["1. symbol"]);
             }}
           >

@@ -78,6 +78,7 @@ function App() {
           {stockDetails && stockDetails["Meta Data"] && (
             <div className="d-flex justify-content-center">
               <Cards
+                name={stock["companyName"]}
                 symbol={stockDetails["Meta Data"]["2. Symbol"]}
                 date={stockDetails["Meta Data"]["3. Last Refreshed"]}
                 open={

@@ -6,6 +6,7 @@ import { StockContext, StockDetails } from "./Context";
 import { useContext } from "react";
 
 const Cards = (props: {
+  name: string;
   symbol: string;
   open: string;
   high: string;
@@ -17,6 +18,7 @@ const Cards = (props: {
       <Card.Body>
         <div className="row ">
           <Card.Title className="col-10">{props.symbol}</Card.Title>
+          <Card.Subtitle>{props.name}</Card.Subtitle>
           <button
             className="btn btn-success col-2 "
             onClick={() => {
@@ -43,13 +45,20 @@ const Cards = (props: {
 export default Cards;
 
 export const FavoriteCards = () => {
-  let symbols: Array<string> = [];
+  let symbols: Array<Object> = [];
   const { stockDetails, setStockDetails } = useContext<any>(StockDetails);
+  const { stock, setStock } = useContext<any>(StockContext);
 
-  let cookie = getSymbolCookie().split(",");
-  cookie.forEach((s: string) => {
-    symbols.push(s);
-  });
+  // //turns the string into json
+  // let cookie = JSON.parse(getSymbolCookie());
+
+  // cookie.forEach((s: string) => {
+  //   symbols.push(s);
+  // });
+
+  // cookie.array.forEach((favorite: any) => {
+  //   symbols.push(favorite);
+  // });
 
   const setStockInfo = async (stock: string) => {
     const config: Object = {
@@ -79,21 +88,25 @@ export const FavoriteCards = () => {
     }
   };
 
+  console.log(symbols);
+
   return (
     <div>
-      {symbols.map((symbol: string) => {
+      {/* {symbols.map((symbol: object) => {
         return (
           <button
-            key={symbol}
+            key={symbol["symbol"]}
             className="btn btn-primary"
             onClick={() => {
-              setStockInfo(symbol);
+              setStockInfo(symbol["symbol"]);
             }}
           >
-            {symbol}
+            {symbol["symbol"]}
           </button>
         );
-      })}
+      })} */}
+
+      <p>stock</p>
     </div>
   );
 };

@@ -1,19 +1,19 @@
 {
-  "short_name": "stock-app",
-  "name": "stock-app",
-  "description": "Extension that gets real time stock data",
+  "short_name": "Stock Stalker",
+  "name": "Stocl Stalker",
+  "description": "Google Chrome extension that gets real time stock data",
   "icons": {
-    "16": "favicon.ico",
-    "48": "logo192.png",
-    "128": "logo512.png"
+    "16": "./liengraph.png",
+    "48": "./liengraph.png",
+    "128": "./liengraph.png"
   },
 
   "manifest_version": 2,
-  "permissions": ["scripting", "tabs"],
+  "permissions": ["scripting", "tabs", "cookies"],
 
   "version": "0.0.1",
   "browser_action": {
     "default_popup": "index.html",
-    "default_title": "My stock app"
+    "default_title": "Stock Stalker"
   }
 }

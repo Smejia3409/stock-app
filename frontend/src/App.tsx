@@ -55,25 +55,17 @@ function App() {
             </Dropdown>
           </div>
 
+          {getSymbolCookie() && (
+            <div className="d-flex flex-row-reverse">
+              <FavoriteCards />
+            </div>
+          )}
+
           <SearchBar />
           {loading && <LoadingScreen />}
           {/* <Cards symbol="frf" open="22" high="111" low="2" /> */}
 
           {/* {stock != "" && <p>{stock}</p>} */}
-
-          {data && (
-            <div>
-              <p>{data["Meta Data"]["2. Symbol"]}</p>
-              <p>{data["Meta Data"]["Time Series (1min)"]}</p>
-            </div>
-          )}
-
-          {getSymbolCookie() && (
-            <>
-              <p className="app-headers">My favorites</p>
-              <FavoriteCards />
-            </>
-          )}
 
           {stockDetails && stockDetails["Meta Data"] && (
             <div className="d-flex justify-content-center">

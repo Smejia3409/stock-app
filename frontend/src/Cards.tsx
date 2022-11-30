@@ -4,6 +4,7 @@ import { addSymbol, getSymbolCookie, removeSymbol } from "./cookies";
 import axios from "axios";
 import { StockContext, StockDetails } from "./Context";
 import { useContext } from "react";
+import { Dropdown } from "react-bootstrap";
 
 const Cards = (props: {
   name: string;
@@ -13,17 +14,21 @@ const Cards = (props: {
   low: string;
   date: string;
 }) => {
+  const { stock, setStock } = useContext<any>(StockContext);
+
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body>
-        <div className="row ">
-          <Card.Title className="col-10">{props.symbol}</Card.Title>
-          <Card.Subtitle>{props.name}</Card.Subtitle>
+        <div className="row g-2">
+          <div className="col-10">
+            <Card.Title>{props.symbol}</Card.Title>
+            <Card.Subtitle>{props.name}</Card.Subtitle>
+          </div>
           <button
             className="btn btn-success col-2 "
             onClick={() => {
               console.log(props.symbol);
-              addSymbol(props.symbol);
+              addSymbol(props.symbol, stock["companyName"]);
             }}
           >
             <AiOutlinePlus />
@@ -45,20 +50,14 @@ const Cards = (props: {
 export default Cards;
 
 export const FavoriteCards = () => {
-  let symbols: Array<Object> = [];
+  interface ISymbol {
+    symbol: string;
+    companyName: string;
+  }
+
+  let symbols: Array<ISymbol> = JSON.parse(getSymbolCookie());
   const { stockDetails, setStockDetails } = useContext<any>(StockDetails);
   const { stock, setStock } = useContext<any>(StockContext);
-
-  // //turns the string into json
-  // let cookie = JSON.parse(getSymbolCookie());
-
-  // cookie.forEach((s: string) => {
-  //   symbols.push(s);
-  // });
-
-  // cookie.array.forEach((favorite: any) => {
-  //   symbols.push(favorite);
-  // });
 
   const setStockInfo = async (stock: string) => {
     const config: Object = {
@@ -88,25 +87,48 @@ export const FavoriteCards = () => {
     }
   };
 
-  console.log(symbols);
+  console.log(symbols[0].companyName);
 
   return (
-    <div>
-      {/* {symbols.map((symbol: object) => {
+    <>
+      {/* {symbols.map((symbol: ISymbol) => {
         return (
-          <button
-            key={symbol["symbol"]}
-            className="btn btn-primary"
-            onClick={() => {
-              setStockInfo(symbol["symbol"]);
-            }}
-          >
-            {symbol["symbol"]}
-          </button>
+          <div key={symbol.symbol} className="col w-100">
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setStockInfo(symbol.symbol);
+                setStock(symbol);
+              }}
+            >
+              {symbol.companyName}
+            </button>
+            <br />
+          </div>
         );
       })} */}
 
-      <p>stock</p>
-    </div>
+      <Dropdown style={{ paddingBottom: "5%" }}>
+        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+          Favorite Stocks
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {symbols.map((symbol: ISymbol) => {
+            return (
+              <Dropdown.Item
+                className="btn btn-primary"
+                onClick={() => {
+                  setStockInfo(symbol.symbol);
+                  setStock(symbol);
+                }}
+              >
+                {symbol.companyName}
+              </Dropdown.Item>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
   );
 };

@@ -3,8 +3,9 @@ import { searchReducer, StockState } from "./reducer";
 import { useContext, useEffect, useReducer, useRef, useState } from "react";
 import { StockContext, StockDetails } from "./Context";
 import Dropdown from "react-bootstrap/Dropdown";
-import { get_stock_symbols } from "./data";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
 
 const SearchBar = () => {
   const { stock, setStock } = useContext<any>(StockContext);
@@ -54,7 +55,7 @@ const SearchBar = () => {
   }, [companies]);
 
   return (
-    <div className="container">
+    <div className="container h-25">
       <Form style={{ width: "100%" }} onSubmit={findStock}>
         <Form.Group>
           <Form.Control
@@ -65,9 +66,17 @@ const SearchBar = () => {
             placeholder="Search Stock"
           />
         </Form.Group>
-        {showlist && (
-          <StockResults stockList={companies} changeDisplay={setShowList} />
-        )}
+        <div
+          style={{
+            overflowY: "auto",
+            height: "25%",
+            backgroundColor: "red",
+          }}
+        >
+          {showlist && (
+            <StockResults stockList={companies} changeDisplay={setShowList} />
+          )}
+        </div>
         <button type="submit" className="btn btn-success">
           Submit
         </button>
@@ -77,9 +86,19 @@ const SearchBar = () => {
 };
 
 const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
+  interface IModal {
+    modalDisplay: boolean;
+    modalMessage: string;
+  }
+
   const { stock, setStock } = useContext<any>(StockContext);
 
   const { stockDetails, setStockDetails } = useContext<any>(StockDetails);
+
+  const [modalSettings, setModalSettings] = useState<IModal>({
+    modalDisplay: true,
+    modalMessage: "",
+  });
 
   const setStockInfo = async (stock: string) => {
     const config: Object = {
@@ -105,13 +124,34 @@ const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
       console.log(stock_data);
       setStockDetails(stock_data);
     } catch (error) {
-      console.log(error);
-      alert("Stock not found, Error occured with API");
+      console.error(error);
+      setModalSettings({
+        modalMessage: "Stock not found, Error occured with API",
+        modalDisplay: true,
+      });
     }
   };
 
   return (
     <>
+      {/* <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Erorr</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>{modalSettings.modalMessage}</h4>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => {
+              setModalSettings({ ...modalSettings, modalDisplay: false });
+            }}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
+
       {props.stockList.map((company: any) => {
         const region = company["1. symbol"].substring(
           company["1. symbol"].indexOf(".") + 1
@@ -123,7 +163,7 @@ const StockResults = (props: { stockList: Array<any>; changeDisplay: any }) => {
               width: "18 rem",
               overflowY: "scroll",
               height: "8 rem",
-              zIndex: 2,
+              zIndex: 7,
             }}
             onClick={() => {
               console.log(company["1. symbol"]);

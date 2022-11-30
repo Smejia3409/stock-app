@@ -7,23 +7,32 @@ export function getSymbolCookie() {
   return cookie["symbols"];
 }
 
-export const addSymbol = (symbol: string) => {
+export const addSymbol = (symbol: string, companyName: string) => {
   let symbolArr = getSymbolCookie();
+
+  let newSymbol = { symbol: symbol, companyName: companyName };
 
   if (!getSymbolCookie()) {
     console.log("no cookie");
-    let arr = [symbol];
-    document.cookie = `symbols=` + arr;
-  } else {
-    let arrList: Array<string> = getSymbolCookie().split(",");
-    let arr = [symbolArr];
+    let arr: Array<object> = [newSymbol];
 
-    if (!arrList.includes(symbol)) {
-      arr.push(symbol);
-    } else {
-      alert("already included");
+    console.log(JSON.stringify(arr));
+    document.cookie = `symbols=` + JSON.stringify(arr);
+  } else {
+    let savedSymbols: string = getSymbolCookie();
+
+    let symbolList: Array<object> = JSON.parse(savedSymbols);
+
+    console.log(symbolList);
+
+    //go through each saved symbol objects to make sure new symbol don't exist
+    if (!symbolList.includes(newSymbol)) {
+      symbolList.push(newSymbol);
     }
-    document.cookie = `symbols=` + arr;
+
+    console.log(symbolList);
+
+    document.cookie = `symbols=` + JSON.stringify(symbolList);
   }
 };
 

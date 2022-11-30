@@ -70,7 +70,6 @@ const SearchBar = () => {
           style={{
             overflowY: "auto",
             height: "25%",
-            backgroundColor: "red",
           }}
         >
           {showlist && (

@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
 import { AiOutlinePlus } from "react-icons/ai";
-import { addSymbol, getSymbolCookie, removeSymbol } from "./cookies";
+import { addSymbol, getSymbolCookie } from "./cookies";
 import axios from "axios";
 import { StockContext, StockDetails } from "./Context";
 import { useContext } from "react";
@@ -15,6 +15,10 @@ const Cards = (props: {
   date: string;
 }) => {
   const { stock, setStock } = useContext<any>(StockContext);
+
+  let open = parseFloat(props.open).toFixed(2);
+  let high = parseFloat(props.high).toFixed(2);
+  let low = parseFloat(props.low).toFixed(2);
 
   return (
     <Card style={{ width: "18rem" }}>
@@ -35,12 +39,12 @@ const Cards = (props: {
           </button>
         </div>
         <Card.Text>
-          <span>Last Refreshed</span> <br />
+          <span style={{ fontSize: "15px" }}>Last Refreshed</span> <br />
           {new Date(props.date).toLocaleString()}
           <br />
-          Open:{props.open} <br />
-          High:{props.high} <br />
-          low:{props.low}
+          Open:$ {open} <br />
+          High:$ {high} <br />
+          low:${low}
         </Card.Text>
       </Card.Body>
     </Card>
@@ -87,27 +91,8 @@ export const FavoriteCards = () => {
     }
   };
 
-  console.log(symbols[0].companyName);
-
   return (
     <>
-      {/* {symbols.map((symbol: ISymbol) => {
-        return (
-          <div key={symbol.symbol} className="col w-100">
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                setStockInfo(symbol.symbol);
-                setStock(symbol);
-              }}
-            >
-              {symbol.companyName}
-            </button>
-            <br />
-          </div>
-        );
-      })} */}
-
       <Dropdown style={{ paddingBottom: "5%" }}>
         <Dropdown.Toggle variant="primary" id="dropdown-basic">
           Favorite Stocks

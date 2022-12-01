@@ -1,6 +1,6 @@
 {
   "short_name": "Stock Stalker",
-  "name": "Stocl Stalker",
+  "name": "Stock Stalker",
   "description": "Google Chrome extension that gets real time stock data",
   "icons": {
     "16": "./liengraph.png",
